@@ -2,8 +2,8 @@
 
 import express from 'express';
 import dotenv from 'dotenv';
-import { User, Ticket } from './database/models/index.js';
-import userRouter from './routes/usersRouter.js'
+import userRouter from './routes/usersRouter.js';
+import ticketRouter from './routes/ticketsRouter.js'
 
 /* Para que la api pueda comunicarse con otra aplicacion
  (el front) se debe instalar y configurar cors
@@ -36,17 +36,7 @@ app.get('/', (req, res) => {
 app.use('/api/users', userRouter);
 
 // Obtener todas las listas de compra con el usuario
-app.get('/api/tickets', async (req, res) => {
-    try {
-        const lists = await Ticket.findAll({
-            include: [{ model: User, as: 'user', attributes: ['id', 'name', 'email'] }]
-        });
-        res.json(lists);
-    } catch (error) {
-        console.error('Error al obtener shopping lists:', error);
-        res.status(500).json({ error: 'Error al obtener shopping lists' });
-    }
-});
+app.use('/api/tickets', ticketRouter );
 
 // Iniciar servidor
 app.listen(PORT, () => {

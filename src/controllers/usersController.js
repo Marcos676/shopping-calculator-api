@@ -43,12 +43,12 @@ const createUser = async (req, res) => {
   let body = req.body;
   try {
     const passwordHash = await argon2.hash(body.password);
-    const { name, email } = await User.create({
+    const { id, name, email } = await User.create({
       name: body.name.trim(),
       email: body.email.trim(),
       password: passwordHash,
     });
-    let user = { name, email };
+    let user = { id, name, email };
     const token = jwt.sign(user, process.env.SECRETKEYJWT, { expiresIn: "15m" });
     return res.json({
       ok: true,
@@ -66,12 +66,12 @@ const loginUser = async (req, res) => {
 
   let body = req.body;
   try {
-    const { name, email } = await User.findOne({
+    const { id, name, email } = await User.findOne({
       where: {
         name: body.name.trim(),
       },
     });
-    let user = { name, email };
+    let user = { id, name, email };
     const token = jwt.sign(user, process.env.SECRETKEYJWT, { expiresIn: "15m" });    
     return res.json({
       ok: true,
