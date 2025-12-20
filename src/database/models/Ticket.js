@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../sequelize.js";
 
-const ShoppingList = sequelize.define("shoppingList", {
+const Ticket = sequelize.define("ticket", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -28,9 +28,9 @@ user_id: {
     allowNull: false
 }
 }, {
-    tableName: 'shopping_list',
+    tableName: 'ticket',
     timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at'
 });
-export default ShoppingList
+export default Ticket

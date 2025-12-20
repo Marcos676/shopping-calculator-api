@@ -1,17 +1,17 @@
 import sequelize from '../sequelize.js';
 import User from './User.js';
-import ShoppingList from './ShoppingList.js';
+import Ticket from './Ticket.js';
 
 // Establece asociaciones
-User.hasMany(ShoppingList, {
+User.hasMany(Ticket, {
   foreignKey: 'user_id',
-  as: 'shoppingLists'
+  as: 'tickets'
 });
 
-ShoppingList.belongsTo(User, {
+Ticket.belongsTo(User, {
   foreignKey: 'user_id',
   as: 'user'
 });
 
 export { sequelize };
-export { User, ShoppingList };
+export { User, Ticket };

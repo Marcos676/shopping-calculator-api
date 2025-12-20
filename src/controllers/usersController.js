@@ -1,6 +1,6 @@
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
-import { User, ShoppingList } from "../database/models/index.js";
+import { User, Ticket } from "../database/models/index.js";
 import { validationResult } from "express-validator";
 
 function sendError(valError, res) {
@@ -18,8 +18,8 @@ const userList = async (req, res) => {
       attributes: ["id", "name", "email", "password"],
       include: [
         {
-          model: ShoppingList,
-          as: "shoppingLists",
+          model: Ticket,
+          as: "tickets",
           attributes: [
             "id",
             "name",
