@@ -10,7 +10,7 @@ function sendError(valError, res) {
   }
 }
 
-const ticketsList = async (req, res) => {
+const allTicketsList = async (req, res) => {
   try {
     const lists = await Ticket.findAll({
       include: [
@@ -24,6 +24,21 @@ const ticketsList = async (req, res) => {
   }
 };
 
+const ticketsList = async (req, res) => {
+  try {    
+    const lists = await Ticket.findAll({
+      where: {
+        user_id: req.user.id
+      }
+    });
+    res.json(lists)
+  }
+  catch (error) {
+    console.error("Error al obtener tickets:", error);
+    res.status(500).json({ error: "Error al obtener tickets" });
+  }
+}
 
 
-export { ticketsList };
+
+export { allTicketsList, ticketsList };
